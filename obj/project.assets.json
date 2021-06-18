@@ -8,24 +8,26 @@
     "net5.0": []
   },
   "packageFolders": {
-    "/home/viktor/.nuget/packages/": {}
+    "C:\\Users\\vikt3586\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/mnt/c#/freely_selected_project/freely_selected_project.csproj",
+      "projectUniqueName": "C:\\Users\\vikt3586\\Documents\\OOP\\free_csh_project\\freely_selected_project.csproj",
       "projectName": "freely_selected_project",
-      "projectPath": "/mnt/c#/freely_selected_project/freely_selected_project.csproj",
-      "packagesPath": "/home/viktor/.nuget/packages/",
-      "outputPath": "/mnt/c#/freely_selected_project/obj/",
+      "projectPath": "C:\\Users\\vikt3586\\Documents\\OOP\\free_csh_project\\freely_selected_project.csproj",
+      "packagesPath": "C:\\Users\\vikt3586\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vikt3586\\Documents\\OOP\\free_csh_project\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/viktor/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\vikt3586\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -58,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.301/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

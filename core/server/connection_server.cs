@@ -30,7 +30,7 @@ namespace server.connection
             Init();
 
             // print connection info
-            // Status(); //TODO bug with showing status message
+            Status(); 
 
             // await for client
             Listen();
@@ -55,8 +55,8 @@ namespace server.connection
             while (true)
             {
                 // // errors ckeching
-                // try
-                // {
+                try
+                {
                     // accept client and get stream
                     client = await listener.AcceptTcpClientAsync();
                     stream = client.GetStream();
@@ -64,13 +64,13 @@ namespace server.connection
                     // load packages and exec commang from user
                     Exec();
 
-                // }
+                }
 
-                // // print error
-                // catch
-                // {
-                //     Console.WriteLine("Connection error");
-                // }
+                // print error
+                catch
+                {
+                    Console.WriteLine("Disconnected");
+                }
             }
         }
 
@@ -79,6 +79,8 @@ namespace server.connection
         private void Status()
         {
             Console.WriteLine($"Server address {ipAddr.ToString()}:{port}");
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
         }
 
         // exec user command
@@ -94,6 +96,7 @@ namespace server.connection
                 int readBytes;
                 byte[] buffer = new byte[1024 * 4];
                 string command;
+                byte[] errors;
                 byte[] output;
 
                 // load data from user
@@ -103,14 +106,22 @@ namespace server.connection
                 command = Encoding.UTF8.GetString(buffer);
 
                 // exec commang and send back
-                // ProcessStartInfo process = new ProcessStartInfo { FileName = "/home/viktor/file", Arguments = command, RedirectStandardOutput = true};
-                Process process = new Process();
-                process.StartInfo.FileName = "/home/viktor/file";
-                process.Start();
-                // output = Encoding.UTF8.GetBytes(task.StandardOutput.ReadToEnd());
+                ProcessStartInfo process = new ProcessStartInfo { FileName = "CMD.exe", Arguments = $"/C {command}", RedirectStandardOutput = true, RedirectStandardInput = true, RedirectStandardError = true};
+                Process task = Process.Start(process);
+
+                // get prompt output
+                output = Encoding.UTF8.GetBytes(task.StandardOutput.ReadToEnd());
+                errors = Encoding.UTF8.GetBytes(task.StandardError.ReadToEnd());
 
                 // send back to client
-                // stream.Write(output,0,output.Length);
+                if (output.Length != 0)
+                {
+                    stream.Write(output,0,output.Length);
+                }
+                else
+                {
+                    stream.Write(errors,0,errors.Length);
+                }
             }
         }
     }

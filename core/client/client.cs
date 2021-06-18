@@ -11,6 +11,7 @@ namespace client
     {
         // variables
         Connection connection;
+        bool isWorking = true;
 
 
         // constructor
@@ -26,7 +27,14 @@ namespace client
             connection = new Connection(ipAddr, port);
 
             // app controll
-            Controll();
+            try
+            {
+                Controll();
+            }
+            catch
+            {
+                Console.WriteLine("Disconnected");
+            }
         }
 
         // methods
@@ -34,13 +42,14 @@ namespace client
         // method for controll (exit) server
         private void Controll()
         {
-            switch (Utils.Menu(new string[] { "Send", "World" }))
+            // start listen
+            connection.Get(isWorking);
+
+            while (isWorking)
             {
-                case "Send":
-                connection.Send("uname -a");
-                connection.Get();
-                break;
+                connection.Send(Console.ReadLine());
             }
+
         }
     }
 }

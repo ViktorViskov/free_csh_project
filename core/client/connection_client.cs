@@ -44,50 +44,36 @@ namespace client.connection
         // method for send package
         public async void Send(string command)
         {
-            await stream.WriteAsync(Encoding.UTF8.GetBytes(command));
+            try {
+                await stream.WriteAsync(Encoding.UTF8.GetBytes(command));
+            }
+            catch {
+                
+            }
         }
 
         // method for get packege
-        public void Get()
+        public async void Get(bool isWorking)
         {
             // varaibles
             int readBytes;
             byte[] buffer = new byte[1024 * 4];
-            string command = string.Empty;
+            string command = "";
 
             // load data from user
-            while ((readBytes = stream.Read(buffer, 0, buffer.Length)) != 0)
-            {
-                command += Encoding.UTF8.GetString(buffer);
+            try {
+                Console.Clear();
+                while (true)
+                {
+                    readBytes = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    command += Encoding.UTF8.GetString(buffer,0,readBytes);
+                    Console.WriteLine(command);
+                }
             }
-
-            // print command
-            Console.WriteLine(command);
+            catch {
+                Console.WriteLine("Disconnected");
+                isWorking = false;
+            }
         }
-
-        // exec user command
-        // private void Exec()
-        // {
-        //     // variables
-        //     bool exit = false;
-
-        //     // main loop
-        //     while (!exit)
-        //     {
-        //         // varaibles
-        //         int readBytes;
-        //         byte[] buffer = new byte[1024 * 4];
-        //         string command = string.Empty;
-
-        //         // load data from user
-        //         while ((readBytes = stream.Read(buffer, 0, buffer.Length)) != 0)
-        //         {
-        //             command += Encoding.UTF8.GetString(buffer);
-        //         }
-
-        //         // print command
-        //         Console.WriteLine(command);
-        //     }
-        // }
     }
 }
